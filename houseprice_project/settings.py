@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,18 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-6*ajmsqbs0v%g))(et)cxc#1w)2i!vla7j^jvk$0#dznx=1lt)"
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "django-insecure-6*ajmsqbs0v%g))(et)cxc#1w)2i!vla7j^jvk$0#dznx=1lt)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
 
-# ALLOWED_HOSTS = [
-#     "127.0.0.1",
-#     "192.168.1.205",
-# ]
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -50,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -60,6 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "houseprice_project.urls"
+
 
 TEMPLATES = [
     {
@@ -121,15 +116,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+import os
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
-MEDIA_URL = "images/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
+# MEDIA_URL = "images/"
 
 
 # Default primary key field type
@@ -141,8 +140,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Alternatively, restrict allowed origins
-# CORS_ALLOWED_ORIGINS = [
-#     "http://127.0.0.1:8000",
-#     "http://192.168.1.205:8000",
-#     # Add other origins if needed
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://192.168.1.205:8000",
+    # Add other origins if needed
+]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "192.168.1.205",
+]
