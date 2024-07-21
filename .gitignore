@@ -1,0 +1,12 @@
+# Ignore the virtual environment directory
+myenv/
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore other common files
+*.swp
+.idea/
+.vscode/
