@@ -30,7 +30,9 @@ SECRET_KEY = "django-insecure-6*ajmsqbs0v%g))(et)cxc#1w)2i!vla7j^jvk$0#dznx=1lt)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "realestateestimator.up.railway.app"]
+
+CSRF_TRUSTED_ORIGINS = ["https://realestateestimator.up.railway.app"]
 
 
 # Application definition
