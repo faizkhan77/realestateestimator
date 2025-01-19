@@ -1,1 +1,0 @@
-web: gunicorn houseprice_project.wsgi

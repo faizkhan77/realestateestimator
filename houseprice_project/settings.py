@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,14 +27,15 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-6*ajmsqbs0v%g))(et)cxc#1w)2i!vla7j^jvk$0#dznx=1lt)"
+# SECRET_KEY = "django-insecure-6*ajmsqbs0v%g))(et)cxc#1w)2i!vla7j^jvk$0#dznx=1lt)"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "realestateestimator.up.railway.app"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
-CSRF_TRUSTED_ORIGINS = ["https://realestateestimator.up.railway.app"]
+# CSRF_TRUSTED_ORIGINS = ["https://realestateestimator.up.railway.app"]
 
 
 # Application definition
@@ -122,7 +125,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-import os
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -144,13 +146,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Allow all origins (not recommended for production)
 CORS_ALLOW_ALL_ORIGINS = True
 
-# Alternatively, restrict allowed origins
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
-    "http://192.168.1.205:8000",
-    # Add other origins if needed
-]
-# ALLOWED_HOSTS = [
-#     "127.0.0.1",
-#     "192.168.1.205",
-# ]
+
+ALLOWED_HOSTS = ["*"]
