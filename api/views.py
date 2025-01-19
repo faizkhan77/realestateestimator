@@ -135,6 +135,7 @@ def load_saved_artifacts(request):
 
 @csrf_exempt
 def predict_house_price(request):
+    load_saved_artifacts(request)
     if request.method == "POST":
         pr = float(request.POST.get("pr"))
         floor = int(request.POST.get("floor"))
@@ -147,8 +148,6 @@ def predict_house_price(request):
         transaction = request.POST.get("transaction")
         furnishing = request.POST.get("furnishing")
         society = request.POST.get("society")
-
-        load_saved_artifacts(request)
 
         estimated_price = get_estimated_price(
             pr,

@@ -528,12 +528,12 @@
             let furnishing = document.getElementById("furnishing").value
             let society = document.getElementById("society").value
 
-            console.log({
+            console.log("data: ",{
                 price_sqft, floor, bathroom, balcony, total_sqft, num_parking, bhk, location, transaction, furnishing, society
             });
 
-            // let url = "http://127.0.0.1:8000/predict_house_price/";
-            let url = "https://realestateestimator.up.railway.app/predict_house_price/";
+            let url = "http://127.0.0.1:8000/predict_house_price/";
+            //let url = "https://realestateestimator.up.railway.app/predict_house_price/";
 
 
             input = {
@@ -550,11 +550,15 @@
                 society : society
             }
 
+            console.log('INPUT', input.pr)
+
             $.post(url, input, function(data, status){
                 console.log("below is estimated price")
                 document.getElementById('estimatedprice').innerHTML = data["estimated_price"].toString() + ' Lakh'
                 console.log(status)
             })
+
+            console.log("data sent")
 
             const inputs = [price_sqft, floor, total_sqft, num_parking];
             const allValid = inputs.every(value => !isNaN(value) && value > 0);
@@ -569,8 +573,8 @@
             console.log("document loaded")
 
             // Getting Locations names
-            // let loc_url = "http://127.0.0.1:8000/get_location_names"
-            let loc_url = "https://realestateestimator.up.railway.app/get_location_names/"
+            let loc_url = "http://127.0.0.1:8000/get_location_names"
+            //let loc_url = "https://realestateestimator.up.railway.app/get_location_names/"
             $.get(loc_url, function(data, status){
                 console.log("got response for locations")
                 console.log(status)
@@ -587,8 +591,8 @@
             })
 
             // Getting Society names
-            // let soc_url = "http://127.0.0.1:8000/get_society_names/"
-            let soc_url = "https://realestateestimator.up.railway.app/get_society_names/"
+            let soc_url = "http://127.0.0.1:8000/get_society_names/"
+            //let soc_url = "https://realestateestimator.up.railway.app/get_society_names/"
             $.get(soc_url, function(data, status){
                 console.log("got response for society")
                 console.log(status)
@@ -606,8 +610,8 @@
             })
 
             // Getting Transactions
-            // let trans_url = "http://127.0.0.1:8000/get_transactions"
-            let trans_url = "https://realestateestimator.up.railway.app/get_transactions/"
+            let trans_url = "http://127.0.0.1:8000/get_transactions"
+            //let trans_url = "https://realestateestimator.up.railway.app/get_transactions/"
             $.get(trans_url, function(data, status){
                 console.log("got response for transaction")
                 console.log(status)
@@ -625,8 +629,8 @@
             })
 
             // Getting Furnishing
-            // let furnish_url = "http://127.0.0.1:8000/get_furnishing"
-            let furnish_url = "https://realestateestimator.up.railway.app/get_furnishing/"
+            let furnish_url = "http://127.0.0.1:8000/get_furnishing"
+            //let furnish_url = "https://realestateestimator.up.railway.app/get_furnishing/"
             $.get(furnish_url, function(data, status){
                 console.log("got response for furnishing")
                 console.log(status)
